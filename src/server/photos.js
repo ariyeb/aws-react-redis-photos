@@ -10,3 +10,13 @@ export const fetchPhotos = async (phtosValue) => {
         console.log(err);
     }
 };
+
+export const getSearchSuggestions = async (searchValue) => {
+    try {
+        const { data } = await Axios.get(URL + "get-search-suggestions/" + searchValue);
+        console.log("getSearchSuggestions:", data);
+        return data;
+    } catch (err) {
+        console.log(err);
+    }
+};

@@ -1,22 +1,26 @@
-form{
+form {
   display: block;
   position: relative;
   width: 70vw;
   margin: 2rem auto;
 }
 
-input{
+input {
   width: 100%;
   padding: 1rem;
 }
-p{
+.suggestion {
   cursor: pointer;
 }
 
-.suggetions-container{
+.suggestion:hover {
+  background: #ccc;
+}
+
+.suggetions-container {
   padding: 1rem;
   position: absolute;
-  top:100%;
+  top: 100%;
   left: 0;
   z-index: 10;
   width: 100%;
@@ -24,14 +28,14 @@ p{
   border: 1px solid blue;
 }
 
-.photos-container{
+.photos-container {
   width: 70vw;
   margin: 2rem auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-img{
+img {
   max-width: 100%;
   margin: 1rem auto;
 }
