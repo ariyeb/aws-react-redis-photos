@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { fetchPhotos, getSearchSuggestions } from './server/photos';
 
 function App() {
+  const [searchValue, setSearchValue] = useState("");
   const [photos, setPhotos] = useState([]);
   const [photosSuggetions, setPhotosSuggetions] = useState([]);
   let requestTimeout;
@@ -19,18 +20,10 @@ function App() {
       });
   };
 
-  const onClickSuggestion = (suggestion) => {
-    console.log("onClickSuggestion", suggestion);
-    fetchPhotos(suggestion)
-      .then(photosData => {
-        setPhotosSuggetions([]);
-        setPhotos(photosData);
-      });
-  };
-
-  const onKeyupSearchInput = (event) => {
+  const onChangeSearchInput = (event) => {
     clearTimeout(requestTimeout);
     const searchValue = event.target.value;
+    setSearchValue(searchValue);
     if (searchValue.length === 0) return setPhotosSuggetions([]);
     requestTimeout = setTimeout(() => {
       getSearchSuggestions(searchValue)
@@ -38,6 +31,16 @@ function App() {
           setPhotosSuggetions(suggestions);
         });
     }, 500);
+  };
+
+  const onClickSuggestion = (suggestion) => {
+    console.log("onClickSuggestion", suggestion);
+    fetchPhotos(suggestion)
+      .then(photosData => {
+        setPhotosSuggetions([]);
+        setPhotos(photosData);
+        setSearchValue(suggestion);
+      });
   };
 
   const onfocusSearchInput = (event) => {
@@ -49,8 +52,8 @@ function App() {
       });
   };
 
-  const onBlurSearchInput = () => {
-    setTimeout(() => setPhotosSuggetions([]), 500);
+  const onBlurSearchInput = (event) => {
+    setTimeout(() => setPhotosSuggetions([]), 200);
   };
 
   return (
@@ -60,7 +63,9 @@ function App() {
         <input
           type="text"
           placeholder="Search photo"
-          onKeyUp={ onKeyupSearchInput }
+          value={ searchValue }
+          onChange={ onChangeSearchInput }
+          // onKeyUp={ onKeyupSearchInput }
           onFocus={ onfocusSearchInput }
           onBlur={ onBlurSearchInput }
         />

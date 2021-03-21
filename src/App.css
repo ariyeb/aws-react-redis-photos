@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 form {
   display: block;
   position: relative;
@@ -36,6 +40,6 @@ input {
 }
 
 img {
-  max-width: 100%;
+  max-width: 90%;
   margin: 1rem auto;
 }
